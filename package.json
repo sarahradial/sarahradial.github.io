@@ -35,5 +35,7 @@
   },
   "devDependencies": {
     "webpack-command": "^0.4.1"
-  }
+  },
+  "postinstall": "webpack",
+  "heroku-postbuild": "webpack -p"
 }
