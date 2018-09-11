@@ -1,12 +1,8 @@
-canvas {
-  display: block;
-  margin: 10px auto;
-  width: 80%;
-  height:500px;
-}
 body {
   background-color: white;
   font-family: 'Open Sans', sans-serif;
+  padding: 80px;
+  text-align: left;
 }
 .header {
   padding: 80px;
