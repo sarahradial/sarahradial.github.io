@@ -1,12 +1,12 @@
 body {
-  background-color: #C06C84;
+  background-color: #A8A7A8;
   font-family: 'Open Sans', sans-serif;
   padding: 20px;
   text-align: left;
 }
 .navbar{
   overflow: hidden;
-  background-color: #355C7D;
+  background-color: #363636;
   color: white;
 }
 .navbar a {
@@ -15,12 +15,12 @@ body {
   text-align: : center;
   padding: 14px;
   text-decoration: none;
-  color: white;
+  color: #E8175D;
 }
 .header {
   padding: 20px;
   text-align: left;
-  background: #F8B195;
+  background: #474747;
 }
 .header h1 {
   font-family: 'Comfortaa', cursive;
