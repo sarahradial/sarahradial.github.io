@@ -21,7 +21,10 @@ body {
   color: #474747;
 }
 .header {
-  padding: 10px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  padding-right: 20px;
   text-align: left;
   background: #CC527A;
   color: white;
