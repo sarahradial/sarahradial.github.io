@@ -1,2 +1,2 @@
 # sarahradial.github.io
-My profile website
+My Portfolio website featuring my interests and projects.
