@@ -1,11 +1,11 @@
 body {
   background-color: white;
   font-family: 'Open Sans', sans-serif;
-  padding: 80px;
+  padding: 20px;
   text-align: left;
 }
 .header {
-  padding: 80px;
+  padding: 20px;
   text-align: left;
   background: lightgrey;
 }
