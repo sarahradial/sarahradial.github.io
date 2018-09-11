@@ -25,3 +25,8 @@ body {
 .header h1 {
   font-family: 'Comfortaa', cursive;
 }
+.content {
+  padding: 20px;
+  text-align: left;
+  background: white;
+}
