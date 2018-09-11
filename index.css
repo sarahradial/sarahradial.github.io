@@ -5,8 +5,14 @@ canvas {
   height:500px;
 }
 body {
-  background-color: lightpink;
+  background-color: white;
+  font-family: 'Open Sans', sans-serif;
 }
-h1 {
+.header {
+  padding: 80px;
+  text-align: left;
+  background: lightgrey;
+}
+.header h1 {
   font-family: 'Comfortaa', cursive;
 }
