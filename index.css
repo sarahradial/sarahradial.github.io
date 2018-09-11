@@ -11,7 +11,7 @@ body {
 .navbar a {
   float: left;
   display: block;
-  text-align: : center;
+  text-align: center;
   padding: 14px;
   text-decoration: none;
   color: #E8175D;
@@ -43,4 +43,12 @@ body {
   text-decoration: none;
   color: #E8175D;
   display: block;
+}
+.footer a {
+  float: left;
+  display: block;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  color: #E8175D;
 }
