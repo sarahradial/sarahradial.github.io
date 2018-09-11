@@ -1,18 +1,26 @@
 body {
-  background-color: white;
+  background-color: #C06C84;
   font-family: 'Open Sans', sans-serif;
   padding: 20px;
   text-align: left;
 }
 .navbar{
   overflow: hidden;
-  background-color: darkgrey;
+  background-color: #355C7D;
+  color: white;
+}
+.navbar a {
+  float: left;
+  display: block;
+  text-align: : center;
+  padding: 14px;
+  text-decoration: none;
   color: white;
 }
 .header {
   padding: 20px;
   text-align: left;
-  background: lightgrey;
+  background: #F8B195;
 }
 .header h1 {
   font-family: 'Comfortaa', cursive;
