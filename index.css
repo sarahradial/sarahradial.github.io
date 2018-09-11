@@ -7,7 +7,6 @@ body {
 .navbar{
   overflow: hidden;
   background-color: #363636;
-  color: white;
 }
 .navbar a {
   float: left;
@@ -16,6 +15,10 @@ body {
   padding: 14px;
   text-decoration: none;
   color: #E8175D;
+}
+.navbar a:hover{
+  background-color: #E8175D;
+  color: #363636;
 }
 .header {
   padding: 20px;
@@ -29,5 +32,14 @@ body {
 .content {
   padding: 20px;
   text-align: left;
-  background: white;
+  background: #CC527A;
+  color: black;
+}
+.footer {
+  padding: 20px;
+  text-align: center;
+  background-color: #363636;
+  text-decoration: none;
+  color: #E8175D;
+  display: block;
 }
