@@ -42,7 +42,7 @@ body {
   background-color: #474747;
   text-decoration: none;
   color: #E8175D;
-  display: block;
+  display: flex;
 }
 .footer a {
   float: left;
