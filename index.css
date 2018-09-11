@@ -1,12 +1,12 @@
 body {
-  background-color: #A8A7A8;
+  background-color: #363636;
   font-family: 'Open Sans', sans-serif;
   padding: 20px;
   text-align: left;
 }
 .navbar{
   overflow: hidden;
-  background-color: #363636;
+  background-color: #474747;
 }
 .navbar a {
   float: left;
@@ -18,12 +18,12 @@ body {
 }
 .navbar a:hover{
   background-color: #E8175D;
-  color: #363636;
+  color: #474747;
 }
 .header {
   padding: 20px;
   text-align: left;
-  background: #474747;
+  background: #CC527A;
   color: white;
 }
 .header h1 {
@@ -32,14 +32,14 @@ body {
 .content {
   padding: 20px;
   text-align: left;
-  background: #CC527A;
+  background: #A8A7A8;
   color: black;
 }
 .footer {
   overflow: hidden;
   padding: 20px;
   text-align: center;
-  background-color: #363636;
+  background-color: #474747;
   text-decoration: none;
   color: #E8175D;
   display: block;
