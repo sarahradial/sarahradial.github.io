@@ -40,6 +40,12 @@ body {
   flex-wrap: wrap;
   display: flex;
 }
+.side {
+  flex: 30%;
+}
+.main {
+  flex: 70%;
+}
 .footer {
   overflow: hidden;
   text-align: center;
