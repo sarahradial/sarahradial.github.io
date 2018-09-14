@@ -37,16 +37,16 @@ body {
   text-align: left;
   background: #A8A7A8;
   color: black;
-  flex-wrap: wrap;
   display: flex;
+  flex-wrap: wrap;
 }
 .side {
   flex: 30%;
-  padding: 5px;
+  padding: 20px;
 }
 .main {
   flex: 70%;
-  padding: 5px;
+  padding: 20px;
 }
 .footer {
   overflow: hidden;
