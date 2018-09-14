@@ -29,7 +29,10 @@ body {
   background: #CC527A;
   color: white;
 }
-.header h1 {
+h1 {
+  font-family: 'Comfortaa', cursive;
+}
+h2 {
   font-family: 'Comfortaa', cursive;
 }
 .content {
