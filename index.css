@@ -42,11 +42,11 @@ body {
 }
 .side {
   flex: 30%;
-  padding: 10px;
+  padding: 5px;
 }
 .main {
   flex: 70%;
-  padding: 10px;
+  padding: 5px;
 }
 .footer {
   overflow: hidden;
