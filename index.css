@@ -31,6 +31,8 @@ body {
   background-color: #474747;
   overflow-x: hidden;
   padding-top: 20px;
+  text-decoration: none;
+  color: #E8175D;
 }
 
 /* Page content */
