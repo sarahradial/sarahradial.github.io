@@ -31,6 +31,12 @@ body {
   background-color: #474747;
   overflow-x: hidden;
   padding-top: 20px;
+}
+.sidebar a {
+  float: left;
+  display: block;
+  text-align: center;
+  padding: 14px;
   text-decoration: none;
   color: #E8175D;
 }
