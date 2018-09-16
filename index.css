@@ -20,26 +20,6 @@ body {
   background-color: #E8175D;
   color: #474747;
 }
-/* The sidenav */
-.sidenav {
-  height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #474747;
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-.sidebar a {
-  float: left;
-  display: block;
-  text-align: center;
-  padding: 14px;
-  text-decoration: none;
-  color: #E8175D;
-}
 
 /* Page content */
 .main {
