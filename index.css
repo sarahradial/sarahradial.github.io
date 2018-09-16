@@ -21,10 +21,6 @@ body {
   color: #474747;
 }
 
-/* Page content */
-.main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-}
 .header {
   padding-top: 50px;
   padding-left: 20px;
@@ -41,7 +37,6 @@ h2 {
   font-family: 'Comfortaa', cursive;
 }
 .content {
-  padding: 20px;
   text-align: left;
   background: #A8A7A8;
   color: black;
@@ -73,7 +68,7 @@ h2 {
   color: #E8175D;
 }
 @media screen and (max-width: 700px) {
-    .row {
+    .content {
         flex-direction: column;
     }
 }
