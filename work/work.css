@@ -42,9 +42,9 @@ h2 {
 /* The actual timeline (the vertical ruler) */
 .timeline {
   position: relative;
-  max-width: 800px;
   margin: 0 auto;
   background-image: url('../images/snow.jpg');
+  background-size: 1200px;
 }
 
 /* The actual timeline (the vertical ruler) */
