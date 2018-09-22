@@ -39,11 +39,14 @@ h2 {
   font-family: 'Comfortaa', cursive;
 }
 .content {
-  text-align: left;
   background: #A8A7A8;
   color: black;
   display: flex;
-  flex-wrap: wrap;
+}
+.main {
+  flex: 33.33%;
+  padding: 10px;
+  position: relative;
 }
 .image{
   display: block;
@@ -55,9 +58,9 @@ h2 {
 .overlay{
   position: absolute;
   border-radius: 25px;
-  top: 20px;
-  bottom: 20px;
-  left: 20px;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
   width: 225px;
   opacity: 0;
   -webkit-transition: 0.5s ease;
@@ -75,12 +78,6 @@ h2 {
   transform: translate(-50%, -50%);
   color: black;
   text-align: center;
-}
-.main {
-  flex: 50%;
-  padding: 20px;
-  position: relative;
-  width: 33%;
 }
 .footer {
   overflow: hidden;
