@@ -42,24 +42,25 @@ h2 {
   background: #A8A7A8;
   color: black;
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 .main {
-  flex: 33.33%;
   padding: 10px;
   position: relative;
+  display: flex;
 }
 .image{
-  display: block;
-  width:225px;
-  height:225px;
-  border:1px;
+  width: 225px;
+  height: 225px;
+  border: 1px;
   border-radius: 25px;
 }
 .overlay{
   position: absolute;
   border-radius: 25px;
   top: 10px;
-  bottom: 10px;
+  bottom: 15px;
   left: 10px;
   width: 225px;
   opacity: 0;
@@ -95,11 +96,7 @@ h2 {
   text-decoration: none;
   color: #E8175D;
 }
-@media screen and (max-width: 800px) {
-    .content {
-        flex-direction: column;
-    }
-}
+
 @media screen and (max-width: 400px) {
     .navbar a {
         float: none;
