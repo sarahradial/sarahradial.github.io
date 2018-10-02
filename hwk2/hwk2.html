@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Clown</title>
+    <style>
+      body { margin: 0px; }
+      canvas { width: 100%; height: 70% }
+    </style>
+    <script src="clown.js"></script>
+    <script src="../libs/three.min.js"></script>
+    <script src="../libs/tw.js"></script>
+    <script src="../libs/OrbitControls.js"></script>
+    <script src="../libs/dat.gui.min.js"></script>
+  </head>
+<body>
+
+    <h1>Clown by Sarah Yan</h1>
+    <!--- created script to contain all clown functions--->
+    <script type="text/javascript" src="clown.js"></script>
+    <script>
+        var renderer = new THREE.WebGLRenderer();
+
+        var scene = new THREE.Scene();
+
+        TW.mainInit(renderer,scene);
+
+        var params = createClownParams();
+        var clown = createClown(params);
+        scene.add(clown);
+
+        // bounding box variables
+        var boundingHeight = params.legLength + params.bodyRadius*params.bodyScaleY + params.headRadius*2 + params.hatHeight;
+        var boundingLength = params.bodyRadius*2 + 2*Math.cos(params.armAngle)*params.armLength + 2*params.handRadius;
+        var boundingWidth = 25;
+
+        var state = TW.cameraSetup(renderer, scene,
+                       {minx: 0, maxx: boundingLength,
+                        miny: 0, maxy: boundingHeight,
+                        minz: -boundingWidth/2, maxz: boundingWidth/2});
+        TW.toggleAxes("show");
+    </script>
+    </body>
+</html>
