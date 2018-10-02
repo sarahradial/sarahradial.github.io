@@ -2,7 +2,7 @@
   <head>
     <title>Clown</title>
     <style>
-      body { margin: 0px; }
+      body { margin: 10px; }
       canvas { width: 100%; height: 70% }
     </style>
     <script src="clown.js"></script>
@@ -28,12 +28,13 @@
         scene.add(clown);
 
         // bounding box variables
-        var boundingHeight = params.legLength + params.bodyRadius*params.bodyScaleY + params.headRadius*2 + params.hatHeight;
-        var boundingLength = params.bodyRadius*2 + 2*Math.cos(params.armAngle)*params.armLength + 2*params.handRadius;
-        var boundingWidth = 25;
-
+        var boundingHeight = params.hipHeight + 2*params.bodyRadius*params.bodyScaleY + 2*params.headRadius + Math.cos(params.hatAngle)*params.hatHeight;
+        var boundingLength = params.bodyRadius + 2*Math.sin(params.armAngle)*(params.armLength + params.shoulderRadius + params.handRadius);
+        // find max width from components
+        var boundingWidth = Math.max(2*Math.max(params.footRadius, params.legTopRadius, params.legBottomRadius, params.bodyRadius, params.hatTopRadius, params.hatRadius, params.hatBottomRadius),
+                            (2*params.headRadius + Math.max(params.eyeRadius, params.noseRadius, params.mouthTube)));
         var state = TW.cameraSetup(renderer, scene,
-                       {minx: 0, maxx: boundingLength,
+                       {minx: -boundingLength/2, maxx: boundingLength/2,
                         miny: 0, maxy: boundingHeight,
                         minz: -boundingWidth/2, maxz: boundingWidth/2});
         TW.toggleAxes("show");
