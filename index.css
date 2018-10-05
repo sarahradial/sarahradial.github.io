@@ -96,6 +96,10 @@ h2 {
   text-decoration: none;
   color: #E8175D;
 }
+canvas {
+  width: 100%;
+  height: 70%;
+}
 
 @media screen and (max-width: 400px) {
     .navbar a {
