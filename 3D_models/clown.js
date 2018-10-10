@@ -18,16 +18,28 @@ function createClownParams(){
         sphereDetail: 16, cylinderDetail: 20,
         // materials
         yellowMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("yellow")}),
-        headMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("lightgreen")}),
-        hatMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("darkblue")}),
-        faceMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("black")}),
+        headMaterial: new THREE.MeshLambertMaterial({color: new THREE.Color("lightgreen")}),
+        hatMaterial: new THREE.MeshPhongMaterial({color: new THREE.Color("darkblue"),
+                                                  specular: new THREE.Color("white"),
+                                                  shiniess: 30,
+                                                  shading: THREE.SmoothShading}),
+        faceMaterial: new THREE.MeshPhongMaterial({color: new THREE.Color("black"),
+                                                   specular: new THREE.Color("white"),
+                                                   shininess: 40,
+                                                   shading: THREE.SmoothShading}),
         mouthMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("white")}),
-        bodyMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("darkblue")}),
-        shoulderMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("grey")}),
-        armMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("powderblue")}),
-        legMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("blue")}),
-        footMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("lime")}),
-        handMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("white")})
+        bodyMaterial: new THREE.MeshPhongMaterial({color: new THREE.Color("darkblue"),
+                                                   specular: new THREE.Color("white"),
+                                                   shiniess: 70,
+                                                   shading: THREE.SmoothShading}),
+        shoulderMaterial: new THREE.MeshPhongMaterial({color: new THREE.Color("grey"),
+                                                       specular: new THREE.Color("white"),
+                                                       shiniess: 20,
+                                                       shading: THREE.SmoothShading}),
+        armMaterial: new THREE.MeshLambertMaterial({color: new THREE.Color("powderblue")}),
+        legMaterial: new THREE.MeshLambertMaterial({color: new THREE.Color("blue")}),
+        footMaterial: new THREE.MeshLambertMaterial({color: new THREE.Color("lime")}),
+        handMaterial: new THREE.MeshLambertMaterial({color: new THREE.Color("white")})
     };
     return parameters;
 }
