@@ -27,9 +27,7 @@
       </div>
       <script>
           var renderer = new THREE.WebGLRenderer();
-
           var scene = new THREE.Scene();
-
           TW.mainInit(renderer,scene);
 
           //create a barn, fence and ground
@@ -39,14 +37,11 @@
           fence = makeFence(40);
           //fence.rotation.y = Math.PI/2;
           fence.translateX(5);
-
           fence2 = fence.clone();
           fence2.translateZ(-10);
-
           fence3 = makeFence(100);
           fence3.translateX(9.2);
           fence3.rotation.y = Math.PI/2;
-
           scene.add(fence);
           scene.add(fence2);
           scene.add(fence3);
@@ -55,7 +50,6 @@
           var ground = new THREE.Mesh(new THREE.PlaneGeometry(20,20),
                                       new THREE.MeshBasicMaterial({color:THREE.ColorKeywords.darkgreen}));
           ground.rotation.x = -Math.PI/2;
-
           scene.add(ground);
 
           // set default parameters so that it is equivalent to camera 1
