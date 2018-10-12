@@ -34,11 +34,12 @@
       <script type="text/javascript" src="clown.js"></script>
       <script>
           function makeLights(){
+
             light0 = new THREE.AmbientLight(0x202020);
             scene.add(light0);
 
             light1 = new THREE.PointLight(TW.WHITE, 0.5);
-            light1.position.set(-50, 10, 10);
+            light1.position.set(-50, 10, -20);
             scene.add(light1);
 
             light2 = new THREE.DirectionalLight(TW.White, 0.8);

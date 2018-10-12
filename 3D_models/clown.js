@@ -21,7 +21,7 @@ function createClownParams(){
         headMaterial: new THREE.MeshLambertMaterial({color: new THREE.Color("lightgreen")}),
         hatMaterial: new THREE.MeshPhongMaterial({color: new THREE.Color("darkblue"),
                                                   specular: new THREE.Color("white"),
-                                                  shiniess: 30,
+                                                  shiniess: 10,
                                                   shading: THREE.SmoothShading}),
         faceMaterial: new THREE.MeshPhongMaterial({color: new THREE.Color("black"),
                                                    specular: new THREE.Color("white"),

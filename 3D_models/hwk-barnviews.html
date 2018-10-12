@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <title>Barn Views Exercise</title>
+    <script src="camera.js"></script>
+    <script src="../libs/three.min.js"></script>
+    <script src="../libs/tw.js"></script>
+    <script src="../libs/OrbitControls.js"></script>
+    <script src="../libs/dat.gui.min.js"></script>
+    <link rel="stylesheet" type ="text/css" href="../index.css">
+    <link rel="javascript" type ="text/javascript" href="../index.js">
+    <link rel ="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa:300,400|Open+Sans">
+  </head>
+<body>
+    <div class="header">
+      <h1>Sarah Anne Yan's Portfolio</h1>
+    </div>
+    <div class="navbar">
+      <a href="../index.html">Homepage</a>
+      <a href="../aboutme/aboutme.html">About Me</a>
+      <a href="../experience/experience.html">Experience</a>
+      <a href="../hobbies/hobbies.html">Hobbies</a>
+    </div>
+    <div class="content">
+      <div class="main">
+        <h1>Barn Views Exercise  </h1>
+        <h1 id= "slide"> : Slide 1</h1>
+      </div>
+      <script>
+          var renderer = new THREE.WebGLRenderer();
+
+          var scene = new THREE.Scene();
+
+          TW.mainInit(renderer,scene);
+
+          var barn = TW.createWireBarn(10, 10, 20);
+          scene.add(barn);
+
+          // set default parameters so that it is equivalent to camera 1
+          var cameraParameters = defaultParameters();
+          var camera = setUpCamera(cameraParameters);
+          scene.add(camera);
+
+          function render(){
+            renderer.render(scene, camera);
+          }
+
+          render();
+
+          function setCamera1(){
+            console.log('setcamera1');
+            camera.position.set(0, 0, 25);
+            camera.up.set(0, 1, 0);
+            camera.fov = 90;
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            camera.updateProjectionMatrix();
+            render();
+            document.getElementById('slide').innerHTML = ": Slide 1";
+          }
+          function setCamera2(){
+            console.log('setcamera2');
+            camera.position.set(25, 0, 30);
+            camera.up.set(0, 1, 0);
+            camera.fov = 60;
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            camera.updateProjectionMatrix();
+            render();
+            document.getElementById('slide').innerHTML = ": Slide 2";
+          }
+          function setCamera3(){
+            console.log('setcamera3');
+            camera.position.set(20, 20, 20);
+            camera.up.set(0, 1, 0);
+            camera.fov = 80;
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            camera.updateProjectionMatrix();
+            render();
+            document.getElementById('slide').innerHTML = ": Slide 3";
+          }
+          function setCamera4(){
+            console.log('setcamera4');
+            camera.position.set(0, 50, 0);
+            camera.up.set(1, 1, 0);
+            camera.fov = 80;
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            camera.updateProjectionMatrix();
+            render();
+            document.getElementById('slide').innerHTML = ": Slide 4";
+          }
+          function setCamera5(){
+            console.log('setcamera4');
+            camera.position.set(0, 50, 0);
+            camera.up.set(0.5, 0, -1);
+            camera.fov = 80;
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            camera.updateProjectionMatrix();
+            render();
+            document.getElementById('slide').innerHTML = ": Slide 5";
+          }
+          TW.setKeyboardCallback("1", setCamera1, "camera setup 1");
+          TW.setKeyboardCallback("2", setCamera2, "camera setup 2");
+          TW.setKeyboardCallback("3", setCamera3, "camera setup 3");
+          TW.setKeyboardCallback("4", setCamera4, "camera setup 4");
+          TW.setKeyboardCallback("5", setCamera5, "camera setup 5");
+      </script>
+    </div>
+    <div class="footer">
+      <a href="https://www.facebook.com/sarah.a.y23" target="_blank">Facebook</a>
+      <a href="https://www.linkedin.com/in/sarah-a-yan/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/sarahradial" target="_blank">Github</a>
+    </div>
+    </body>
+</html>
