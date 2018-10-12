@@ -29,3 +29,22 @@ function setUpCamera(cameraParameters){
   camera.lookAt(new THREE.Vector3(cp.atX, cp.atY, cp.atZ));
   return camera;
 }
+function makeFence(numPickets) {
+    /* Makes a fence, with the left end at the origin and proceeding down
+       the x axis. The pickets are made from barn objects, scaled to be unit
+       height (at the shoulder) and very thin. */
+
+    var fence = new THREE.Object3D();
+
+    var picketG = TW.createBarn(.09, 1, 0.1);
+    var picketM = new THREE.MeshNormalMaterial();
+    var picket = new THREE.Mesh(picketG,picketM);
+    var i;
+
+    for( i = 0; i < numPickets; ++i ) {
+        picket = picket.clone();
+        picket.translateX(0.1);
+        fence.add(picket);
+    }
+    return fence;
+}
