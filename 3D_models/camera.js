@@ -1,16 +1,35 @@
 // default camera cameraParameters
-function defaultParameters(){
+function defaultBarnViewsParameters(){
   var params = {
     near: 5,
     far: 80,
     fov: 90,                  // degrees
-    aspectRatio: 1, // from canvas dimensions, see CSS
+    aspectRatio: 100/70, // from canvas dimensions, see CSS
     atX: 0,
     atY: 0,
     atZ: 0,
     eyeX: 0,
     eyeY: 0,
     eyeZ: 25,
+    upX: 0,
+    upY: 1,
+    upZ: 0
+  };
+  return params;
+}
+// flythrough default parameters
+function defaultFlythroughParameters(){
+  var params = {
+    near: 5,
+    far: 150,
+    fov: 90,                  // degrees
+    aspectRatio: 0.9, // from canvas dimensions, see CSS
+    atX: 0,
+    atY: 0,
+    atZ: 0,
+    eyeX: 0,
+    eyeY: 100,
+    eyeZ: 100,
     upX: 0,
     upY: 1,
     upZ: 0
