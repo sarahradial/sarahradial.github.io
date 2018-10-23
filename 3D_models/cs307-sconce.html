@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <title>Sconce Scene</title>
+    <style>
+      canvas {
+        width: 100%;
+        height: 70%;
+      }
+      body {
+        margin: 20px;
+      }
+    </style>
+    <script src="sconce.js"></script>
+    <script src="../libs/three.min.js"></script>
+    <script src="../libs/tw.js"></script>
+    <script src="../libs/OrbitControls.js"></script>
+    <script src="../libs/dat.gui.min.js"></script>
+  </head>
+<body>
+    <div class="content">
+      <div class="main">
+        <h1>Sconce Scene </h1>
+      </div>
+      <script>
+          var renderer = new THREE.WebGLRenderer();
+
+          var scene = new THREE.Scene();
+
+          TW.mainInit(renderer,scene);
+          var roomGeom = new THREE.BoxGeometry(100, 100, 100);
+          var params = {
+            // light colors
+            ambientColor: 0xE1E1E1,
+            spotColor: 0xFFFFFF,
+            directionColor: 0xE9E9E9,
+            // material colors
+            wallColors: 0x336271,
+            ceilingColor: 0x2F5C35,
+            floorColor: 0x8E7A60,
+            coneColor: 0x7D7B79, coneSpecular: 0xB1B1B1, coneShininess: 10,
+            ballColor: 0x5A2D9B, ballSpecular: 0xD5D5D5, ballShininess: 40,
+            // parameters for objects
+            ballRadius: 10, ballDistX: -30, ballDistZ: -30,
+            coneRadius: 5, coneHeight: 10, coneDistX: -40, coneDistZ: -45, coneDistY: 0,
+            // global variables for GUI
+            ambientOn: true,
+            spotOn: true,
+            directionalOn: true
+          };
+
+          // create room with the materials specified above in params
+          var materialArray = createMaterialArray(params.wallColors, params.ceilingColor, params.floorColor);
+          var roomMaterial = new THREE.MeshFaceMaterial(materialArray);
+          var roomMesh = new THREE.Mesh(roomGeom, roomMaterial);
+          scene.add(roomMesh);
+
+          // create ball with specified params above and set its position
+          var ball = createBall(params.ballColor, params.ballRadius, params.ballSpecular, params.ballShininess);
+          ball.position.set(params.ballDistX, -50+params.ballRadius, params.ballDistZ);
+          scene.add(ball);
+
+          // create cone pointing up with specified params above and set its position
+          var coneUp = createCone(params.coneColor, params.coneRadius, params.coneHeight, params.coneSpecular, params.coneShininess);
+          coneUp.position.set(params.coneDistX, params.coneDistY + params.coneHeight, params.coneDistZ);
+          coneUp.rotation.z = Math.PI;
+          scene.add(coneUp);
+
+          // create cone pointing down with specified params above and set its position
+          var coneDown = createCone(params.coneColor, params.coneRadius, params.coneHeight, params.coneSpecular, params.coneShininess);
+          coneDown.position.set(params.coneDistX, params.coneDistY, params.coneDistZ);
+          scene.add(coneDown);
+
+          var ambient, spot_up, spot_down, directional;
+
+          function makeLights(){
+            // using globals for the lights due to gui
+            ambient = new THREE.AmbientLight(params.ambientColor, 1);
+            ambient.position.set(0, 0, 0);
+            scene.add(ambient);
+
+            var spotAngle = Math.atan(params.coneRadius/params.coneHeight);
+
+            // create targets for spotlights to point to
+            var targetUp = new THREE.Object3D();
+            targetUp.name = "targetUp";
+            targetUp.position.set(params.coneDistX, 50, params.coneDistZ);
+            scene.add(targetUp);
+            var targetDown = new THREE.Object3D();
+            targetDown.name = "targetDown";
+            targetDown.position.set(params.coneDistX, -50, params.coneDistZ);
+
+            // add a spotlight pointing up from the top cone
+            spot_up = new THREE.SpotLight(params.spotColor, 2, 50 + params.coneHeight, spotAngle, 0, 0);
+            spot_up.position.set(params.coneDistX, params.coneDistY + params.coneHeight/2, params.coneDistZ);
+            spot_up.target = targetUp;
+            spot_up.target.updateMatrixWorld();
+            scene.add(spot_up);
+            scene.add(spot_up.target);
+
+            // add a spotlight pointing down from the bottom cone
+            spot_down = new THREE.SpotLight(params.spotColor, 2, 50 + params.coneHeight, spotAngle, 0, 0);
+            spot_down.position.set(params.coneDistX, params.coneDistY + params.coneHeight/2, params.coneDistZ);
+            spot_down.target = targetDown;
+            spot_down.target.updateMatrixWorld();
+            scene.add(spot_down);
+            scene.add(spot_down.target);
+
+            // add directional light
+            directional = new THREE.DirectionalLight(params.directionColor, 1);
+            directional.position.set(50, 50, 50);
+            scene.add(directional);
+          }
+          makeLights();
+
+          function updateLights(){
+            scene.remove(ambient);
+            scene.remove(spot_up);
+            scene.remove(spot_down);
+            scene.remove(directional);
+
+            if (params.ambientOn){
+              scene.add(ambient);
+            }
+            if (params.spotOn){
+              scene.add(spot_up);
+              scene.add(spot_down);
+            }
+            if (params.directionalOn){
+              scene.add(directional);
+            }
+          }
+          function redo(){
+            updateLights();
+            TW.render();
+          }
+
+          var state = TW.cameraSetup(renderer, scene,
+                         {minx:-50, maxx: 50,
+                          miny: -50, maxy: 50,
+                          minz: -50, maxz: 50});
+          var gui = new dat.GUI();
+          gui.add(params, 'ambientOn').onChange(redo);
+          gui.add(params, 'spotOn').onChange(redo);
+          gui.add(params, 'directionalOn').onChange(redo);
+      </script>
+    </div>
+    </body>
+</html>
