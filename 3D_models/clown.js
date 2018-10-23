@@ -43,6 +43,31 @@ function createClownParams(){
     };
     return parameters;
 }
+// create material array for the room given its colors
+function createMaterialArray(wallColors, ceilingColor, floorColor){
+  var materialArray = [];
+  // add same material for walls
+  for (var i = 0; i < 2; i++) {
+      materialArray.push(new THREE.MeshPhongMaterial({
+                                   color: wallColors,
+                                   side: THREE.BackSide}));
+  }
+  // add ceiling material
+  materialArray.push(new THREE.MeshPhongMaterial({
+                          color: ceilingColor,
+                          side: THREE.BackSide }));
+  // add floor material
+  materialArray.push(new THREE.MeshPhongMaterial({
+                          color: floorColor,
+                          side: THREE.BackSide }));
+  // add same material for walls
+  for (var i = 0; i < 2; i++) {
+      materialArray.push(new THREE.MeshPhongMaterial({
+                                   color: wallColors,
+                                   side: THREE.BackSide}));
+  }
+  return materialArray;
+}
 // creates origin marker
 function createOrigin(params){
     var origin = new THREE.Object3D();

@@ -27,7 +27,7 @@
         <p>This is an example of our CS307 problem sets. The original clown
           assignment was to make a clown built from THREE.js Object 3D
           components such as the Cylinder, Sphere, and Torus. I have added
-          material and lighting to this clown.</p>
+          a room, materials and lights to this clown.</p>
       </div>
       <!--- created script to contain all clown functions--->
       <script type="text/javascript" src="clown.js"></script>
@@ -51,6 +51,19 @@
 
           TW.mainInit(renderer,scene);
           makeLights();
+          // create room for clown to reside
+          var roomParams = {
+            wallColors: 0x336271,
+            ceilingColor: 0x2F5C35,
+            floorColor: 0x8E7A60
+          }
+          var roomGeom = new THREE.BoxGeometry(50, 50, 50);
+          var materialArray = createMaterialArray(roomParams.wallColors, roomParams.ceilingColor, roomParams.floorColor);
+          var roomMaterial = new THREE.MeshFaceMaterial(materialArray);
+          var roomMesh = new THREE.Mesh(roomGeom, roomMaterial);
+          roomMesh.position.set(0, 25, 0);
+          scene.add(roomMesh);
+
           var params = createClownParams();
           var clown = createClown(params);
           scene.add(clown);
