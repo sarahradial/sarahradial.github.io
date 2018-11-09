@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>Creative Scene</title>
+    <style>
+      canvas {
+        width: 100%;
+        height: 70%;
+      }
+      body {
+        margin: 20px;
+      }
+    </style>
+    <script src="../libs/three.min.js"></script>
+    <script src="../libs/tw.js"></script>
+    <script src="../libs/OrbitControls.js"></script>
+    <script src="../libs/dat.gui.min.js"></script>
+  </head>
+<body>
+    <div class="content">
+      <div class="main">
+        <h1>Creative Scene </h1>
+      </div>
+      <script src="creative-scene.js"></script>
+      <script>
+          var renderer = new THREE.WebGLRenderer();
+          var scene = new THREE.Scene();
+          TW.mainInit(renderer, scene);
+
+          // add lights
+          var ambient = new THREE.AmbientLight(0xDDDDDD, 0.6);
+          scene.add(ambient);
+          var direct = new THREE.DirectionalLight(0xAAAAAA, 0.8);
+          direct.position.set(0, 1, 1);
+          scene.add(direct);
+
+          // create parameters
+          var columnParams = createColumnParams();
+          var sideArchParams = createSideArchParams();
+          var middleArchParams = createMiddleArchParams();
+          var materialsParams = createMaterials();
+          // to be deleted
+          var origin = createOrigin(columnParams);
+          scene.add(origin);
+
+          var archOfConstantine = createArchOfConstantine(columnParams, sideArchParams, middleArchParams, materialsParams);
+          scene.add(archOfConstantine);
+
+          var state = TW.cameraSetup(renderer, scene,
+                         {minx: -100, maxx: 100,
+                          miny: -100, maxy: 100,
+                          minz: -100, maxz: 100});
+          TW.toggleAxes("show");
+      </script>
+    </div>
+    </body>
+</html>

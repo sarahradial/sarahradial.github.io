@@ -30,7 +30,7 @@ function createClownParams(){
         mouthMaterial: new THREE.MeshBasicMaterial({color: new THREE.Color("white")}),
         bodyMaterial: new THREE.MeshPhongMaterial({color: new THREE.Color("darkblue"),
                                                    specular: new THREE.Color("white"),
-                                                   shiniess: 70,
+                                                   shininess: 70,
                                                    shading: THREE.SmoothShading}),
         shoulderMaterial: new THREE.MeshPhongMaterial({color: new THREE.Color("grey"),
                                                        specular: new THREE.Color("white"),
