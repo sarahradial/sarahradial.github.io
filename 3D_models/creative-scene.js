@@ -24,7 +24,7 @@ function createColumnParams(){
     },
     // shaft parameters for column
     shaft: {
-      topHeight: 50, bottomHeight: 25, topRadius: 5, middleRadius: 6, bottomRadius: 6.25
+      topHeight: 80, bottomHeight: 40, topRadius: 5, middleRadius: 6, bottomRadius: 6.25
     },
     // stairBlock parameters for column
     stairBlock2: {
@@ -48,7 +48,7 @@ function createSideArchParams(){
   var sideArch = {
     width: 30, depth: 50,
     wedgeHeight: 10, wedgeWidth: 5,
-    archWidth: 60, archHeight: 30,
+    archWidth: 60, archThick: 10,
     block1height: 80,
   };
   return sideArch;
@@ -57,7 +57,7 @@ function createSideArchParams(){
 function createMiddleArchParams(){
   var middleArch = {
     width: 35,
-    archWidth: 100, archHeight: 30,
+    archWidth: 80, archThick: 10,
     block1height: 70
   };
   return middleArch;
@@ -68,7 +68,8 @@ function createMaterials(){
     capitalMaterial: new THREE.MeshLambertMaterial({color: new THREE.Color("lightgrey")}),
     shaftMaterial: new THREE.MeshLambertMaterial({color: 0x777777}),
     middleBlockMaterial: new THREE.MeshLambertMaterial({color: 0x888888}),
-    stairMaterial: new THREE.MeshLambertMaterial({color: 0x999999})
+    stairMaterial: new THREE.MeshLambertMaterial({color: 0x999999}),
+    archMaterial: new THREE.MeshLambertMaterial({color: 0x666666, side: THREE.DoubleSide})
   };
   return materials
 }
@@ -79,6 +80,38 @@ function createOrigin(params){
     originMesh.name = "origin";
     origin.add(originMesh);
     return origin;
+}
+// function to create an archway using bezier surfaces and ring geometry
+// input: width, depth, height, thick
+function syanArch(width, depth, thick, material){
+  var arch = new THREE.Object3D();
+  var cpsBottom = [  [[-width, 0, depth/2], [-width, width + thick, depth/2], [width, width + thick, depth/2], [width, 0, depth/2]],
+                    [[-width, 0, depth/4], [-width, width + thick, depth/4], [width, width + thick, depth/4], [width, 0, depth/4]],
+                    [[-width, 0, -depth/4], [-width, width + thick, -depth/4], [width, width + thick, -depth/4], [width, 0, -depth/4]],
+                    [[-width, 0, -depth/2], [-width, width + thick, -depth/2], [width, width + thick, -depth/2], [width, 0, -depth/2]] ];
+  var bottomGeom = new THREE.BezierSurfaceGeometry(cpsBottom.reverse(), 20, 20);
+  var bottomMesh = new THREE.Mesh(bottomGeom, material);
+
+  var cpsTop = [  [[-width - thick, 0, depth/2], [-width- thick, width + 2*thick, depth/2], [width + thick, width + 2*thick, depth/2], [width + thick, 0, depth/2]],
+                    [[-width - thick, 0, depth/4], [-width- thick, width + 2*thick, depth/4], [width + thick, width + 2*thick, depth/4], [width + thick, 0, depth/4]],
+                    [[-width - thick, 0, -depth/4], [-width- thick, width + 2*thick, -depth/4], [width + thick, width + 2*thick, -depth/4], [width + thick, 0, -depth/4]],
+                    [[-width - thick, 0, -depth/2], [-width- thick, width + 2*thick, -depth/2], [width + thick, width + 2*thick, -depth/2], [width + thick, 0, -depth/2]] ];
+  var topGeom = new THREE.BezierSurfaceGeometry(cpsTop.reverse(), 20, 20);
+  var topMesh = new THREE.Mesh(topGeom, material);
+
+  var frontRingGeom = new THREE.RingGeometry(width, width + thick, 30, 30, 0, Math.PI);
+  var frontRingMesh = new THREE.Mesh(frontRingGeom, material);
+
+  var backRingGeom = new THREE.RingGeometry(width, width + thick, 30, 30, 0, Math.PI);
+  var backRingMesh = new THREE.Mesh(backRingGeom, material);
+
+  frontRingMesh.position.set(0, 0, depth/2);
+  backRingMesh.position.set(0, 0, -depth/2);
+  arch.add(bottomMesh);
+  arch.add(topMesh);
+  arch.add(frontRingMesh);
+  arch.add(backRingMesh);
+  return arch;
 }
 // function to create the echninus part of the capital
 // origin of echnius is in the middle
@@ -250,37 +283,56 @@ function syanSideArch(columnParams, sideArchParams, middleArchWidth, materialsPa
   var totalHeight = columnParams.stairBlock1.height1 + columnParams.stairBlock1.height2 + columnParams.stairBlock1.height3 +
     columnParams.middleBlock1.height + columnParams.stairBlock2.height1 + columnParams.stairBlock2.height2 + columnParams.stairBlock2.height3 +
     columnParams.shaft.topHeight + columnParams.shaft.bottomHeight + columnParams.capital1.baseHeight + columnParams.capital1.bottomHeight;
-  var topBlock = syanMiddleBlock(totalHeight - sideArchParams.wedgeHeight-sideArchParams.block1height-sideArchParams.archHeight,
-    sideArchParams.width*3.5 + middleArchWidth, sideArchParams.depth, materialsParams.middleBlockMaterial);
+  var topBlock = syanMiddleBlock(totalHeight - sideArchParams.wedgeHeight-sideArchParams.block1height-sideArchParams.archWidth/2- sideArchParams.archThick,
+    sideArchParams.width*3.5 + middleArchWidth - sideArchParams.archThick, sideArchParams.depth - sideArchParams.wedgeWidth/2, materialsParams.middleBlockMaterial);
   // left side of arch
   var wedgeBlockL = syanMiddleBlock(sideArchParams.wedgeHeight,
     sideArchParams.width/2 + sideArchParams.wedgeWidth*2 + middleArchWidth,
     sideArchParams.depth + sideArchParams.wedgeWidth*2, materialsParams.stairMaterial);
   var thinBlock1L = syanMiddleBlock(sideArchParams.block1height, sideArchParams.width/2 + middleArchWidth,
     sideArchParams.depth, materialsParams.middleBlockMaterial);
-  var thinBlock2L = syanMiddleBlock(sideArchParams.archHeight, sideArchParams.width/2 + middleArchWidth - sideArchParams.wedgeWidth,
+  var thinBlock2L = syanMiddleBlock(sideArchParams.archWidth/2 + sideArchParams.archThick,
+    sideArchParams.width/2 + middleArchWidth - sideArchParams.wedgeWidth - sideArchParams.archThick,
     sideArchParams.depth - sideArchParams.wedgeWidth, materialsParams.capitalMaterial);
   // right side of arch
   var wedgeBlockR = syanMiddleBlock(sideArchParams.wedgeHeight, sideArchParams.width + sideArchParams.wedgeWidth*2,
     sideArchParams.depth + sideArchParams.wedgeWidth*2, materialsParams.stairMaterial);
   var thinBlock1R = syanMiddleBlock(sideArchParams.block1height, sideArchParams.width,
     sideArchParams.depth, materialsParams.middleBlockMaterial);
-  var thinBlock2R = syanMiddleBlock(sideArchParams.archHeight, sideArchParams.width - sideArchParams.wedgeWidth,
+  var thinBlock2R = syanMiddleBlock(sideArchParams.archWidth/2 + sideArchParams.archThick, sideArchParams.width - sideArchParams.wedgeWidth - sideArchParams.archThick,
     sideArchParams.depth - sideArchParams.wedgeWidth, materialsParams.capitalMaterial);
+  // arch
+  var arch = syanArch(sideArchParams.archWidth/2, sideArchParams.depth, sideArchParams.archThick, materialsParams.archMaterial);
+  var block1 = syanMiddleBlock(sideArchParams.archWidth/2 - sideArchParams.archThick, sideArchParams.archWidth + sideArchParams.archThick,
+    sideArchParams.depth - sideArchParams.archThick, materialsParams.stairMaterial);
+  var block2 = syanMiddleBlock(sideArchParams.archWidth/4, sideArchParams.archWidth/4,
+    sideArchParams.depth - sideArchParams.archThick, materialsParams.stairMaterial);
+  var block3 = syanMiddleBlock(sideArchParams.archWidth/4, sideArchParams.archWidth/4,
+    sideArchParams.depth - sideArchParams.archThick, materialsParams.stairMaterial);
+  var block4 = syanMiddleBlock(sideArchParams.archWidth/2 + sideArchParams.archThick, sideArchParams.archThick,
+    sideArchParams.depth - sideArchParams.archThick, materialsParams.stairMaterial);
+  var block5 = syanMiddleBlock(sideArchParams.archWidth/2 + sideArchParams.archThick, sideArchParams.archThick,
+    sideArchParams.depth - sideArchParams.archThick, materialsParams.stairMaterial);
   // calculate positions
   var rightSide1X = sideArchParams.archWidth/2 + sideArchParams.width/2;
   var rightSide2X = sideArchParams.archWidth/2 + sideArchParams.width/2 + sideArchParams.wedgeWidth/4;
   var leftSide1X = -(sideArchParams.archWidth/2 + sideArchParams.width/4 + middleArchWidth/2);
   var leftSide2X = -(sideArchParams.archWidth/2 + sideArchParams.width/4 + sideArchParams.wedgeWidth/4 + middleArchWidth/2);
-  var topBlockY = sideArchParams.wedgeHeight + sideArchParams.block1height + sideArchParams.archHeight;
+  var topBlockY = sideArchParams.wedgeHeight + sideArchParams.block1height + sideArchParams.archWidth/2 + sideArchParams.archThick;
   // set positions
   wedgeBlockL.position.set(leftSide2X, 0, 0);
   wedgeBlockR.position.set(rightSide2X, 0, 0);
   thinBlock1L.position.set(leftSide1X, sideArchParams.wedgeHeight, 0);
   thinBlock1R.position.set(rightSide1X, sideArchParams.wedgeHeight, 0);
-  thinBlock2L.position.set(leftSide1X, sideArchParams.wedgeHeight + sideArchParams.block1height, 0);
-  thinBlock2R.position.set(rightSide1X, sideArchParams.wedgeHeight + sideArchParams.block1height, 0);
-  topBlock.position.set(-sideArchParams.width/4, topBlockY, 0);
+  thinBlock2L.position.set(leftSide1X - sideArchParams.archThick/2, sideArchParams.wedgeHeight + sideArchParams.block1height, 0);
+  thinBlock2R.position.set(rightSide1X + sideArchParams.archThick/2, sideArchParams.wedgeHeight + sideArchParams.block1height, 0);
+  topBlock.position.set(-sideArchParams.width/4 + sideArchParams.archThick/2, topBlockY, 0);
+  arch.position.set(0, sideArchParams.wedgeHeight + sideArchParams.block1height, 0);
+  block1.position.set(0, sideArchParams.wedgeHeight + sideArchParams.block1height + sideArchParams.archWidth/2, 0);
+  block2.position.set(sideArchParams.archWidth/2, sideArchParams.wedgeHeight + sideArchParams.block1height + sideArchParams.archWidth*3/8, 0);
+  block3.position.set(-sideArchParams.archWidth/2, sideArchParams.wedgeHeight + sideArchParams.block1height + sideArchParams.archWidth*3/8, 0);
+  block4.position.set(-sideArchParams.archWidth/2 - sideArchParams.archThick/2, sideArchParams.wedgeHeight + sideArchParams.block1height, 0);
+  block5.position.set(sideArchParams.archWidth/2 + sideArchParams.archThick/2, sideArchParams.wedgeHeight + sideArchParams.block1height, 0);
 
   // add objects
   sideArch.add(wedgeBlockL);
@@ -290,8 +342,44 @@ function syanSideArch(columnParams, sideArchParams, middleArchWidth, materialsPa
   sideArch.add(thinBlock2L);
   sideArch.add(thinBlock2R);
   sideArch.add(topBlock);
-
+  sideArch.add(arch);
+  sideArch.add(block1);
+  sideArch.add(block2);
+  sideArch.add(block3);
+  sideArch.add(block4);
+  sideArch.add(block5);
   return sideArch;
+}
+// function to create the middle arch
+function syanMiddleArch(columnParams, sideArchParams, middleArchParams, materialsParams){
+  var middleArch = new THREE.Object3D();
+  var totalHeight = columnParams.stairBlock1.height1 + columnParams.stairBlock1.height2 + columnParams.stairBlock1.height3 +
+    columnParams.middleBlock1.height + columnParams.stairBlock2.height1 + columnParams.stairBlock2.height2 + columnParams.stairBlock2.height3 +
+    columnParams.shaft.topHeight + columnParams.shaft.bottomHeight + columnParams.capital1.baseHeight + columnParams.capital1.bottomHeight;
+  var block1Height = totalHeight - sideArchParams.wedgeHeight-sideArchParams.block1height-sideArchParams.archWidth/2- sideArchParams.archThick - middleArchParams.archWidth/2;
+  var block1 = syanMiddleBlock(block1Height, middleArchParams.archWidth+middleArchParams.archThick,
+    sideArchParams.depth - middleArchParams.archThick, materialsParams.stairMaterial);
+  var block2 = syanMiddleBlock(middleArchParams.archWidth/4, middleArchParams.archWidth/4,
+    sideArchParams.depth - middleArchParams.archThick, materialsParams.stairMaterial);
+  var block3 = syanMiddleBlock(middleArchParams.archWidth/4, middleArchParams.archWidth/4,
+    sideArchParams.depth - middleArchParams.archThick, materialsParams.stairMaterial);
+  var block4 = syanMiddleBlock(totalHeight - sideArchParams.wedgeHeight - sideArchParams.block1height, middleArchParams.archThick*1.3,
+    sideArchParams.depth - middleArchParams.archThick, materialsParams.stairMaterial);
+  var block5 = syanMiddleBlock(totalHeight - sideArchParams.wedgeHeight - sideArchParams.block1height, middleArchParams.archThick*1.3,
+    sideArchParams.depth - middleArchParams.archThick, materialsParams.stairMaterial);
+  var arch = syanArch(middleArchParams.archWidth/2, sideArchParams.depth, middleArchParams.archThick*1.3, materialsParams.archMaterial);
+  block1.position.set(0, middleArchParams.archWidth/2+middleArchParams.archThick*0.1, 0);
+  block2.position.set(middleArchParams.archWidth/2, middleArchParams.archWidth*3/8, 0);
+  block3.position.set(-middleArchParams.archWidth/2, middleArchParams.archWidth*3/8, 0);
+  block4.position.set(-middleArchParams.archWidth/2 - middleArchParams.archThick*1.3/2, 0, 0);
+  block5.position.set(middleArchParams.archWidth/2 + middleArchParams.archThick*1.3/2, 0, 0);
+  middleArch.add(block1);
+  middleArch.add(block2);
+  middleArch.add(block3);
+  middleArch.add(block4);
+  middleArch.add(block5);
+  middleArch.add(arch);
+  return middleArch;
 }
 // function to create top of the arch
 // origin at bottom center
@@ -356,6 +444,8 @@ function createArchOfConstantine(columnParams, sideArchParams, middleArchParams,
   // create side archs
   var rightSideArch = syanSideArch(columnParams, sideArchParams, middleArchParams.width, materialsParams);
   var leftSideArch = syanSideArch(columnParams, sideArchParams, middleArchParams.width, materialsParams);
+  // create middle arch
+  var middleArch = syanMiddleArch(columnParams, sideArchParams, middleArchParams, materialsParams);
   // create top arch
   var topArch = syanTopArch(columnParams, sideArchParams, middleArchParams, materialsParams);
 
@@ -381,6 +471,7 @@ function createArchOfConstantine(columnParams, sideArchParams, middleArchParams,
   column8.position.set(column4X, 0, -columnAbsZ);
   rightSideArch.position.set(sideArchAbsX, 0, 0);
   leftSideArch.position.set(-sideArchAbsX, 0, 0);
+  middleArch.position.set(0, sideArchParams.wedgeHeight + sideArchParams.block1height + sideArchParams.archWidth/2 + sideArchParams.archThick, 0);
   topArch.position.set(0, topBaseX, 0);
   // rotate left side arch
   leftSideArch.rotation.y = Math.PI;
@@ -396,6 +487,7 @@ function createArchOfConstantine(columnParams, sideArchParams, middleArchParams,
   archOfConstantine.add(rightSideArch);
   archOfConstantine.add(leftSideArch);
   archOfConstantine.add(topArch);
+  archOfConstantine.add(middleArch);
 
   return archOfConstantine;
 }
