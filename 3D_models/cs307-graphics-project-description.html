@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>CS307 Graphics Project Alpha</title>
+    <style>
+      body {
+        margin: 20px;
+      }
+    </style>
+  </head>
+<body>
+    <div class="content">
+      <div class="main">
+        <h1>Scenic Arch of Constantine by Sarah Yan</h1>
+        <h3>General Description: </h3>
+        <p>From this demo
+          <a href="cs307-graphics-project-alpha.html">here</a>. I have created a scene containing
+          the arch of Constantine, a fountain, some fancy trees, some tile flooring,
+          and some animated fire flies. The camera is preset in the demo, but in this page,
+          I will show close-ups for certain parts of the modelling. </p>
+          <img src="daytime.png" alt="day time scene" height= "300" width= "500">
+          <img src="nighttime.png" alt="night time scene" height= "300" width= "500">
+          <p>You can toggle to see day time or night time. For the day time scene,
+            there are no fireflies and it is just a bright day. For the night
+            time scene. there are fireflies and they are flying around, some
+            casting light on to the other modeled figures. </p>
+          <h3>Components in Scene:</h3>
+          <img src="arch.png" alt="arch" height= "150" width= "250">
+          <img src="fountain.png" alt="arch" height= "150" width= "250">
+          <img src="fancytree.png" alt="arch" height= "150" width= "250">
+          <img src="firefly.png" alt="arch" height= "150" width= "250">
+          <p>The arch of Constantine can be seen <a href="cs307-creative-scene.html">
+            here</a> where you can change the camera angle. The arch itself is just
+            placed in the background of this project. I plan on having more fireflies
+            revolving around the arch (and in the scene in generally). The fountain
+            is made out of boxgeometry meshes. I modularized it by making a function
+            that creates one layer of the fountain. Then, after tree layers, I created
+            a base frame (also made out of boxgeometry meshes). Originally, I wanted to
+            animate water from the water fountain, but I settled on just animating
+            the fireflies. I plan on adding a rectangle light source on the fountain,
+            but I have not gotten to that yet. The fancy tree is made from a cone and
+            3 flattened torus geometry meshes. The firefly is made from 2 half sphere
+            that are scaled accordingly, two box geometry mesh wings, and a light source
+            at the lighter half sphere. The current firefly does not flap its wings,
+            I hope to animate that for my final version. </p>
+            <h3>Future Implementations: </h3>
+            <p>I hope to put in more fireflies in the scene, have the camera circulate
+              the scene, have the fireflies flap its wings, and the fountain to have
+              a rectangular light source in the cyan sliver. I will see if I will
+              get to these tasks. </p>
+      </div>
+    </div>
+    </body>
+</html>

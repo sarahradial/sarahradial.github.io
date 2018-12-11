@@ -96,6 +96,16 @@ function syanArch(width, depth, thick, material){
 
   frontRingMesh.position.set(0, 0, depth/2);
   backRingMesh.position.set(0, 0, -depth/2);
+
+  bottomMesh.castShadow = true;
+  topMesh.castShadow = true;
+  frontRingMesh.castShadow = true;
+  backRingMesh.castShadow = true;
+  bottomMesh.receiveShadow = true;
+  topMesh.receiveShadow = true;
+  frontRingMesh.receiveShadow = true;
+  backRingMesh.receiveShadow = true;
+
   arch.add(bottomMesh);
   arch.add(topMesh);
   arch.add(frontRingMesh);
@@ -143,11 +153,15 @@ function syanCapital(baseHeight, baseLength, topLength, bottomHeight, bottomLeng
   // make the abacus
   var abacusGeom = new THREE.BoxGeometry(baseLength, baseHeight, baseLength);
   var abacusMesh = new THREE.Mesh(abacusGeom, material);
+  abacusMesh.castShadow = true;
+  abacusMesh.receiveShadow = true;
   abacusMesh.name = "abacus";
   abacusMesh.position.set(0, baseHeight/2 + bottomHeight, 0);
   // make the echnius
   var echniusGeom = syanEchniusGeom(bottomHeight, topLength, bottomLength);
   var echniusMesh = new THREE.Mesh(echniusGeom, material);
+  echniusMesh.castShadow = true;
+  echniusMesh.receiveShadow = true;
   echniusMesh.name = "echnius";
   echniusMesh.position.set(0, bottomHeight/2, 0);
   capital.name  = "capital";
@@ -164,6 +178,11 @@ function syanShaft(topHeight, bottomHeight, topRadius, middleRadius, bottomRadiu
   var bottomGeom = new THREE.CylinderGeometry(middleRadius, bottomRadius, bottomHeight);
   var topMesh = new THREE.Mesh(topGeom, material);
   var bottomMesh = new THREE.Mesh(bottomGeom, material);
+  topMesh.castShadow = true;
+  bottomMesh.castShadow = true;
+  topMesh.receiveShadow = true;
+  bottomMesh.receiveShadow = true;
+
   topMesh.position.set(0, topHeight/2 + bottomHeight, 0);
   bottomMesh.position.set(0, bottomHeight/2, 0);
   shaft.add(topMesh);
@@ -181,6 +200,13 @@ function syanStairBlock(height1, height2, height3, length1, length2, length3, ma
   var topMesh = new THREE.Mesh(topStair, material);
   var middleMesh = new THREE.Mesh(middleStair, material);
   var bottomMesh = new THREE.Mesh(bottomStair, material);
+  topMesh.castShadow = true;
+  middleMesh.castShadow = true;
+  bottomMesh.castShadow = true;
+  topMesh.receiveShadow = true;
+  middleMesh.receiveShadow = true;
+  bottomMesh.receiveShadow = true;
+
   topMesh.position.set(0, height1/2 + height2 + height3, 0);
   middleMesh.position.set(0, height2/2 + height3, 0);
   bottomMesh.position.set(0, height3/2, 0);
@@ -194,6 +220,9 @@ function syanStairBlock(height1, height2, height3, length1, length2, length3, ma
 function syanMiddleBlock(height, length, depth, material){
   var middleBlock = new THREE.Object3D();
   var middleMesh = new THREE.Mesh(new THREE.BoxGeometry(length, height, depth), material);
+  middleMesh.castShadow = true;
+  middleMesh.receiveShadow = true;
+  
   middleMesh.position.set(0, height/2, 0);
   middleBlock.add(middleMesh);
   return middleBlock;

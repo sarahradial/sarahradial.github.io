@@ -1,4 +1,4 @@
-// function to create fountain fountain parameters
+// function to create fountain parameters
 function createFountainParams(){
   var params = {
     height1: 15, length1: 90,
@@ -71,6 +71,17 @@ function fountainLayer(maxHeight, length, lightThick, sideMargin, topMargin, mat
   rightMesh.position.set((length-sideMargin)/2, maxHeight/2, 0);
   leftMesh.position.set(-(length-sideMargin)/2, maxHeight/2, 0);
 
+  centerMesh.receiveShadow = true;
+  centerMesh.castShadow = true;
+  backMesh.receiveShadow = true;
+  backMesh.castShadow = true;
+  frontMesh.receiveShadow = true;
+  frontMesh.castShadow = true;
+  rightMesh.receiveShadow = true;
+  rightMesh.castShadow = true;
+  leftMesh.receiveShadow = true;
+  leftMesh.castShadow = true;
+
   layer.add(centerMesh);
   layer.add(lightMesh);
   layer.add(backMesh);
@@ -118,6 +129,25 @@ function fountainBase(baseHeight, borderHeight, borderTopHeight, baseLength, bor
   frontTopMesh.position.set(0, borderHeight + borderTopHeight/2, (baseLength + borderThick)/2);
   rightTopMesh.position.set((baseLength + borderThick)/2, borderHeight + borderTopHeight/2, 0);
   leftTopMesh.position.set(-(baseLength + borderThick)/2, borderHeight + borderTopHeight/2, 0);
+
+  blackMesh.receiveShadow = true;
+  backBlockMesh.receiveShadow = true;
+  frontBlockMesh.receiveShadow = true;
+  rightBlockMesh.receiveShadow = true;
+  leftBlockMesh.receiveShadow = true;
+  backTopMesh.receiveShadow = true;
+  frontTopMesh.receiveShadow = true;
+  rightTopMesh.receiveShadow = true;
+  leftTopMesh.receiveShadow = true;
+  blackMesh.castShadow = true;
+  backBlockMesh.castShadow = true;
+  frontBlockMesh.castShadow = true;
+  rightBlockMesh.castShadow = true;
+  leftBlockMesh.castShadow = true;
+  backTopMesh.castShadow = true;
+  frontTopMesh.castShadow = true;
+  rightTopMesh.castShadow = true;
+  leftTopMesh.castShadow = true;
 
   base.add(blackMesh);
   base.add(backBlockMesh);
