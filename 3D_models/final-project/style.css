@@ -4,6 +4,24 @@ body {
   padding: 20px;
   text-align: left;
 }
+.navbar{
+  overflow: hidden;
+  background-color: #474747;
+}
+.navbar a {
+  float: left;
+  display: block;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  color: #E8175D;
+  -webkit-transition: 0.25s ease;
+  transition: 0.25s ease;
+}
+.navbar a:hover{
+  background-color: #E8175D;
+  color: #474747;
+}
 .header {
   padding-top: 30px;
   padding-left: 20px;
