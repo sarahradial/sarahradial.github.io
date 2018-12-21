@@ -61,40 +61,16 @@ function createFireFlyParams(){
       xCoord: -140, yCoord: 20, zCoord: -600,
       wingWidth: 4, wingHeight: 1, wingDepth: 4, wingAngle: Math.PI*7/4,
       animX: -10, animY: 0, animZ: 10
+    },
+    firefly6 : {
+      bodyColor: 0x0b281d, lightColor: 0x8bdf9a, intensity: 4, distance: 50,
+      bodyRadius: 3, scaleBodyZ: 2.0, scaleLightZ: 0.8,
+      xCoord: -225, yCoord: 80, zCoord: -250,
+      wingWidth: 4, wingHeight: 1, wingDepth: 4, wingAngle: Math.PI*7/4,
+      animX: 0, animY: -10, animZ: -10
     }
   };
   return params;
-}
-// default camera parameters
-function createCameraParams(){
-  var params = {
-    near: 100,
-    far: 6000,
-    fov: 70,                  // degrees
-    aspectRatio: 100/70, // from canvas dimensions, see CSS
-    atX: 0,
-    atY: 0,
-    atZ: 0,
-    eyeX: 200,
-    eyeY: 200,
-    eyeZ: 900,
-    upX: 0,
-    upY: 1,
-    upZ: 0
-  };
-  return params;
-}
-// function to set up camera based on camera parameters
-function setUpCamera(cameraParameters){
-  var cp = cameraParameters;
-  var camera = new THREE.PerspectiveCamera(cp.fov,
-                                          cp.aspectRatio,
-                                          cp.near,
-                                          cp.far);
-  camera.position.set(cp.eyeX, cp.eyeY, cp.eyeZ);
-  //camera.up.set(cp.upX, cp.upY, cp.upZ);
-  camera.lookAt(scene.position);
-  return camera;
 }
 // function to create fancy tree
 function syanFancyTree(treeParams, materials){
