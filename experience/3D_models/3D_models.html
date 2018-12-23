@@ -1,11 +1,16 @@
 <!DOCTYPE html>
+<!--
+TODO:
+   1. sconce scene
+   3. arch + components
+ -->
 <html lang="en-us">
 
   <head>
     <meta charset="utf-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1">
     <meta name="author" content="Sarah Anne Yan">
-    <link rel="stylesheet" type ="text/css" href="index.css">
+    <link rel="stylesheet" type ="text/css" href="../../index.css">
     <link rel="javascript" type ="text/javascript" href="index.js">
     <link rel ="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa:300,400|Open+Sans">
     <title>Sarah Anne Yan's Portfolio Website</title>
@@ -16,12 +21,58 @@
       <h1> Sarah Anne Yan's Portfolio</h1>
     </div>
     <div class="navbar">
-      <a href="../index.html">Homepage</a>
-      <a href="../aboutme/aboutme.html">About Me</a>
-      <a href="../experience/experience.html">Experience</a>
-      <a href="../hobbies/hobbies.html">Hobbies</a>
+      <a href="../../index.html">Homepage</a>
+      <a href="../../aboutme/aboutme.html">About Me</a>
+      <div class="dropdown">
+        <button class="dropbtn">Experience
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="../timeline.html">Timeline</a>
+          <a href="3D_models.html">Computer Graphics</a>
+        </div>
+      </div>
+      <a href="../../hobbies/hobbies.html">Hobbies</a>
     </div>
-
+    <div class="content">
+      <div class="main">
+        <h2>CS 307 Computer Graphics</h2>
+      </div>
+    </div>
+    <div class="content">
+      <div class="main">
+        <a href = "flythrough/flythrough.html">
+          <img src="main_imgs/flythrough.png" alt="flythrough" class="image">
+          <div class="overlay">
+            <div class="text"><h3>Camera Flythrough</div>
+          </div>
+        </a>
+      </div>
+      <div class="main">
+        <a href = "clown/clown.html">
+          <img src="main_imgs/clown.png" alt="clown" class="image">
+          <div class="overlay">
+            <div class="text"><h3>Clown in a Room</div>
+          </div>
+        </a>
+      </div>
+      <div class="main">
+        <a href = "arch/arch.html">
+          <img src="main_imgs/arch.png" alt="arch" class="image">
+          <div class="overlay">
+            <div class="text"><h3>Arch of Constantine</div>
+          </div>
+        </a>
+      </div>
+      <div class="main">
+        <a href = "final_project/final.html">
+          <img src="main_imgs/final_project.png" alt="final project" class="image">
+          <div class="overlay">
+            <div class="text"><h3>Final Project</div>
+          </div>
+        </a>
+      </div>
+    </div>
     <div class="footer">
       <a href="https://www.facebook.com/sarah.a.y23" target="_blank">Facebook</a>
       <a href="https://www.linkedin.com/in/sarah-a-yan/" target="_blank">LinkedIn</a>

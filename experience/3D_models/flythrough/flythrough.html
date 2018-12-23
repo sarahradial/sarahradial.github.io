@@ -2,12 +2,12 @@
   <head>
     <title>Barn Views Exercise</title>
     <script src="camera.js"></script>
-    <script src="../libs/three.min.js"></script>
-    <script src="../libs/tw.js"></script>
-    <script src="../libs/OrbitControls.js"></script>
-    <script src="../libs/dat.gui.min.js"></script>
-    <link rel="stylesheet" type ="text/css" href="../index.css">
-    <link rel="javascript" type ="text/javascript" href="../index.js">
+    <script src="../../../libs/three.min.js"></script>
+    <script src="../../../libs/tw.js"></script>
+    <script src="../../../libs/OrbitControls.js"></script>
+    <script src="../../../libs/dat.gui.min.js"></script>
+    <link rel="stylesheet" type ="text/css" href="../../../index.css">
+    <link rel="javascript" type ="text/javascript" href="../../../index.js">
     <link rel ="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa:300,400|Open+Sans">
   </head>
 <body>
@@ -15,15 +15,23 @@
       <h1>Sarah Anne Yan's Portfolio</h1>
     </div>
     <div class="navbar">
-      <a href="../index.html">Homepage</a>
-      <a href="../aboutme/aboutme.html">About Me</a>
-      <a href="../experience/experience.html">Experience</a>
-      <a href="../hobbies/hobbies.html">Hobbies</a>
+      <a href="../../../index.html">Homepage</a>
+      <a href="../../../aboutme/aboutme.html">About Me</a>
+      <div class="dropdown">
+        <button class="dropbtn">Experience
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="../../timeline.html">Timeline</a>
+          <a href="../3D_models.html">Computer Graphics</a>
+        </div>
+      </div>
+      <a href="../../../hobbies/hobbies.html">Hobbies</a>
     </div>
     <div class="content">
       <div class="main">
-        <h1>Flythrough Exercise</h1>
-        <h1 id= "slide"> : Slide 0</h1>
+        <h2>Camera Flythrough</h2>
+        <p>You are on<hp id= "slide">: Slide 0</p></p>
       </div>
       <script>
           var renderer = new THREE.WebGLRenderer();
@@ -143,6 +151,13 @@
           TW.setKeyboardCallback("8", setCamera8, "camera setup 8");
           TW.setKeyboardCallback("9", setCamera9, "camera setup 9");
       </script>
+    </div>
+    <div class="content">
+      <div class="main">
+        <h2>General Description</h2>
+        <p>In this scene, you can press number 0 to 9 for changing the camera
+           zoom in.</p>
+    </div>
     </div>
     <div class="footer">
       <a href="https://www.facebook.com/sarah.a.y23" target="_blank">Facebook</a>

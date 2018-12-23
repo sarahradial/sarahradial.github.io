@@ -1,12 +1,12 @@
 <html>
   <head>
     <title>Clown Exercise</title>
-    <script src="../libs/three.min.js"></script>
-    <script src="../libs/tw.js"></script>
-    <script src="../libs/OrbitControls.js"></script>
-    <script src="../libs/dat.gui.min.js"></script>
-    <link rel="stylesheet" type ="text/css" href="../index.css">
-    <link rel="javascript" type ="text/javascript" href="../index.js">
+    <script src="../../../libs/three.min.js"></script>
+    <script src="../../../libs/tw.js"></script>
+    <script src="../../../libs/OrbitControls.js"></script>
+    <script src="../../../libs/dat.gui.min.js"></script>
+    <link rel="stylesheet" type ="text/css" href="../../../index.css">
+    <link rel="javascript" type ="text/javascript" href="../../../index.js">
     <link rel ="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa:300,400|Open+Sans">
   </head>
 <body>
@@ -14,20 +14,22 @@
       <h1>Sarah Anne Yan's Portfolio</h1>
     </div>
     <div class="navbar">
-      <a href="../index.html">Homepage</a>
-      <a href="../aboutme/aboutme.html">About Me</a>
-      <a href="../experience/experience.html">Experience</a>
-      <a href="../hobbies/hobbies.html">Hobbies</a>
+      <a href="../../../index.html">Homepage</a>
+      <a href="../../../aboutme/aboutme.html">About Me</a>
+      <div class="dropdown">
+        <button class="dropbtn">Experience
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="../../timeline.html">Timeline</a>
+          <a href="../3D_models.html">Computer Graphics</a>
+        </div>
+      </div>
+      <a href="../../../hobbies/hobbies.html">Hobbies</a>
     </div>
     <div class="content">
       <div class="main">
-        <h2>Clown Exercise</h2>
-      </div>
-      <div class="main">
-        <p>This is an example of our CS307 problem sets. The original clown
-          assignment was to make a clown built from THREE.js Object 3D
-          components such as the Cylinder, Sphere, and Torus. I have added
-          a room, materials and lights to this clown.</p>
+        <h2>Clown in a Room</h2>
       </div>
       <!--- created script to contain all clown functions--->
       <script type="text/javascript" src="clown.js"></script>
@@ -83,6 +85,15 @@
           // maybe add GUI to show differences in ambient, diffuse and specular
           // look at https://cs.wellesley.edu/~cs307/threejs/demos/MaterialLighting/TeddyBear.shtml
       </script>
+    </div>
+    <div class="content">
+      <div class="main">
+        <h3>General Description:</h3>
+        <p>This is an example of our CS307 problem sets. The original clown
+          assignment was to make a clown built from THREE.js Object 3D
+          components such as the Cylinder, Sphere, and Torus. I have added
+          a room, materials and lights to this clown.</p>
+      </div>
     </div>
     <div class="footer">
       <a href="https://www.facebook.com/sarah.a.y23" target="_blank">Facebook</a>
