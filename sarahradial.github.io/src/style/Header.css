@@ -1,0 +1,23 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #111111;
+  height: 56px;
+  color: white;
+}
+.header-nav {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 0 1rem;
+}
+.header-logo {
+  margin-left: 1rem;
+  color: white;
+  font-size: 1.5rem;
+}
+.spacer {
+  flex: 1;
+}
