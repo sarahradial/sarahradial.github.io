@@ -31,7 +31,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <Router basename='/'>
         <Header sidebarClickHandler={this.sidebarClickHandler}/>
         <Main />
       </Router>
