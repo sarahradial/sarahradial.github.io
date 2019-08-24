@@ -1,0 +1,283 @@
+<html>
+  <head>
+    <link rel="stylesheet" type ="text/css" href="style.css">
+    <link rel ="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa:300,400|Open+Sans">
+    <script src="../../libs/three.min.js"></script>
+    <script src="../../libs/tw.js"></script>
+    <script src="../../libs/OrbitControls.js"></script>
+    <script src="../../libs/dat.gui.min.js"></script>
+    <title>CS307 Graphics Project Alpha</title>
+  </head>
+<body>
+    <div class="header">
+      <h1>Sarah Anne Yan's Arch of Constantine Scene (Demo)</h1>
+    </div>
+    <div class="content">
+      <div class="main">
+        <p>The camera has set positioning in this scene to make it easier to
+          navigate. The orbit control still work for the scene if you wish to
+          navigate throughout the scene. Please enter any number from 0 to 5. </p>
+      </div>
+      <div class="gui-container" id='gui-container'></div>
+      <script src="arch-of-constantine.js"></script>
+      <script src="fountain.js"></script>
+      <script src="background.js"></script>
+      <script src="camera.js"></script>
+      <script>
+          // creates all of the materials
+          function createMaterials(){
+            var materials = {
+              skyMaterial: new THREE.MeshLambertMaterial({color: 0x145acc, side: THREE.BackSide}),
+              groundMaterial: new THREE.MeshLambertMaterial({color: 0x0B8909}),
+              treeBarkMaterial: new THREE.MeshLambertMaterial({color: 0x3F260C}),
+              treeLeafMaterial: new THREE.MeshLambertMaterial({color: 0x076806}),
+              sideWalkMaterial: new THREE.MeshLambertMaterial({color: 0xD1BFA1}),
+              capitalMaterial: new THREE.MeshLambertMaterial({color: new THREE.Color("lightgrey")}),
+              shaftMaterial: new THREE.MeshLambertMaterial({color: 0x777777}),
+              middleBlockMaterial: new THREE.MeshLambertMaterial({color: 0x888888}),
+              stairMaterial: new THREE.MeshLambertMaterial({color: 0x999999}),
+              archMaterial: new THREE.MeshLambertMaterial({color: 0x555555, side: THREE.DoubleSide}),
+              fountainMiddleMaterial: new THREE.MeshLambertMaterial({color: 0x333333}),
+              fountainLightMaterial: new THREE.MeshPhongMaterial({color: 0x63fff9,
+                                    specular: new THREE.Color("white"),
+                                    shininess: 1,
+                                    specular: THREE.SmoothShading}),
+              fountainSideMaterial: new THREE.MeshLambertMaterial({color: 0xAAAAAA, shading: THREE.FlatShading}),
+              fountainTopMaterial: new THREE.MeshLambertMaterial({color: 0xDDDDDD})
+            };
+            return materials;
+          }
+          var renderer = new THREE.WebGLRenderer({antialias: true});
+          renderer.shadowMap.enabled = true; //enable shadow map
+          renderer.shadowMap.type = THREE.PCFSoftShadowMap; // enable antialias shadows
+          var scene = new THREE.Scene();
+          TW.mainInit(renderer, scene);
+
+          // create all of the parameters
+          var columnParams = createColumnParams();
+          var sideArchParams = createSideArchParams();
+          var middleArchParams = createMiddleArchParams();
+          var materialsParams = createMaterials();
+          var fountainParams = createFountainParams();
+          var treeParams = createTreeParams();
+          var sunParams = createSunParams();
+          var sideWalkParams = createSideWalkParams();
+          var cameraParams = createCameraParams();
+          var fireFlyParams = createFireFlyParams();
+
+          // set up initial camera
+          var camera = setUpCamera(cameraParams.camera0);
+          scene.add(camera);
+          var controls = new THREE.OrbitControls(camera, renderer.domElement);
+          controls.maxDistance = 900; // so that you can't get out of the scene
+          controls.maxPolarAngle = Math.PI/2; // so that you can't see below the scene
+
+          // define lights to call back on
+          var ambient, spotLightUp, directional, spotLightDown, targetOrigin, targetUp;
+          // keep track of fireflies, can also alter each fire fly
+          var firefly1, firefly2, firefly3, firefly4, firefly5, firefly6;
+
+          var guiParams = {
+            dayTime: true
+          };
+
+          // target for spotlights
+          var targetOrigin = new THREE.Object3D();
+          targetOrigin.position.set(0, 0, 0);
+          scene.add(targetOrigin);
+          var targetUp = new THREE.Object3D();
+          targetUp.position.set(0, 900, 0);
+          scene.add(targetUp);
+          function createFireFly(){
+            // add fireflie lights here
+            firefly1 = syanFireFly(fireFlyParams.firefly1);
+            firefly1.position.set(fireFlyParams.firefly1.xCoord, fireFlyParams.firefly1.yCoord, fireFlyParams.firefly1.zCoord);
+            firefly1.rotation.y = Math.PI/2;
+            firefly2 = syanFireFly(fireFlyParams.firefly2);
+            firefly2.position.set(fireFlyParams.firefly2.xCoord, fireFlyParams.firefly2.yCoord, fireFlyParams.firefly2.zCoord);
+            firefly2.rotation.y = Math.PI;
+            firefly3 = syanFireFly(fireFlyParams.firefly3);
+            firefly3.position.set(fireFlyParams.firefly3.xCoord, fireFlyParams.firefly3.yCoord, fireFlyParams.firefly3.zCoord);
+            firefly3.rotation.y = Math.PI/2;
+            firefly4 = syanFireFly(fireFlyParams.firefly4);
+            firefly4.position.set(fireFlyParams.firefly4.xCoord, fireFlyParams.firefly4.yCoord, fireFlyParams.firefly4.zCoord);
+            firefly4.rotation.y = Math.PI;
+            firefly5 = syanFireFly(fireFlyParams.firefly5);
+            firefly5.position.set(fireFlyParams.firefly5.xCoord, fireFlyParams.firefly5.yCoord, fireFlyParams.firefly5.zCoord);
+            firefly5.rotation.y = Math.PI/2;
+            firefly6 = syanFireFly(fireFlyParams.firefly6);
+            firefly6.position.set(fireFlyParams.firefly6.xCoord, fireFlyParams.firefly6.yCoord, fireFlyParams.firefly6.zCoord);
+            firefly6.rotation.y = -Math.PI/2;
+          }
+          // this just makes it easier to add all of the fireflies
+          function addFireFly(){
+            scene.add(firefly1);
+            scene.add(firefly2);
+            scene.add(firefly3);
+            scene.add(firefly4);
+            scene.add(firefly5);
+            scene.add(firefly6);
+          }
+          // this just makes it easier to remove all of the fireflies
+          function removeFireFly(){
+            scene.remove(firefly1);
+            scene.remove(firefly2);
+            scene.remove(firefly3);
+            scene.remove(firefly4);
+            scene.remove(firefly5);
+            scene.remove(firefly6);
+          }
+          function moveFly(firefly, fireflyParam, timer){
+            var xPos = fireflyParam.animX * Math.cos(timer) + fireflyParam.xCoord;
+            var yPos = fireflyParam.animY * Math.sin(timer) + fireflyParam.yCoord;
+            var zPos = fireflyParam.animZ * Math.sin(timer) + fireflyParam.zCoord;
+            firefly.position.set(xPos, yPos, zPos);
+          }
+          createFireFly();
+          addFireFly();
+          // day time lights
+          function dayLights(){
+            removeFireFly();
+            ambient = new THREE.AmbientLight(0xCCCCCC, 0.3);
+            // NOTE: use two spotlights since the pointlights shadows are bugged in old three.js
+            spotLightUp = new THREE.SpotLight(0xFFFFFF, 1, 0, Math.PI/2, 0, 2);
+            spotLightUp.target = targetUp;
+            spotLightUp.castShadow = true;
+            spotLightUp.shadow.camera.far = 1000;
+            spotLightUp.position.set(sunParams.xCoord, sunParams.yCoord, sunParams.zCoord);
+            spotLightDown = new THREE.SpotLight(0xFFFFFF, 1, 0, Math.PI/2, 0, 2);
+            spotLightDown.target = targetOrigin;
+            spotLightDown.castShadow = true;
+            spotLightDown.shadow.camera.far = 1000;
+            spotLightDown.position.set(sunParams.xCoord, sunParams.yCoord, sunParams.zCoord);
+            scene.add(ambient);
+            scene.add(spotLightUp);
+            scene.add(spotLightDown);
+          }
+          function nightLights(){
+            ambient = new THREE.AmbientLight(0x888888, 0.3);
+            // NOTE: use two spotlights since the pointlights shadows are bugged in old three.js
+            spotLightUp = new THREE.SpotLight(0x6b788e, 1, 0, Math.PI/2, 0, 2);
+            spotLightUp.target = targetUp;
+            spotLightUp.castShadow = true;
+            spotLightUp.shadow.camera.far = 1000;
+            spotLightUp.position.set(sunParams.xCoord, sunParams.yCoord, sunParams.zCoord);
+            spotLightDown = new THREE.SpotLight(0x6b788e, 1, 0, Math.PI/2, 0, 2);
+            spotLightDown.target = targetOrigin;
+            spotLightDown.castShadow = true;
+            spotLightDown.shadow.camera.far = 1000;
+            spotLightDown.position.set(sunParams.xCoord, sunParams.yCoord, sunParams.zCoord);
+            scene.add(ambient);
+            scene.add(spotLightUp);
+            scene.add(spotLightDown);
+            addFireFly();
+          }
+          // function to call back
+          function render(){
+            if (!guiParams.dayTime) {
+              var timer = 0.0005 * Date.now();
+              moveFly(firefly1, fireFlyParams.firefly1, timer);
+              moveFly(firefly2, fireFlyParams.firefly2, timer);
+              moveFly(firefly3, fireFlyParams.firefly3, timer);
+              moveFly(firefly4, fireFlyParams.firefly4, timer);
+              moveFly(firefly5, fireFlyParams.firefly5, timer);
+              moveFly(firefly6, fireFlyParams.firefly6, timer);
+            }
+            renderer.render(scene, camera);
+          }
+          function updateLights(){
+            scene.remove(ambient);
+            scene.remove(spotLightUp);
+            scene.remove(spotLightDown);
+
+            if (guiParams.dayTime){
+              dayLights();
+            }
+            else {
+              nightLights();
+            }
+            render();
+          }
+          dayLights();
+
+          // create spherical room so that everything is contain in this half sphere
+          var sphereGeom = new THREE.SphereGeometry(900, 60, 60, 0, Math.PI);
+          var sphere = new THREE.Mesh(sphereGeom, materialsParams.skyMaterial);
+          sphere.rotation.x = -Math.PI/2;
+          scene.add(sphere);
+          // create the ground of the room
+          var groundGeom = new THREE.CircleGeometry(900, 120);
+          var ground = new THREE.Mesh(groundGeom, materialsParams.groundMaterial);
+          ground.receiveShadow = true;
+          ground.rotation.x = -Math.PI/2;
+          scene.add(ground);
+
+          var distance = sideWalkParams.totalDistance;
+
+          var archOfConstantine = createArchOfConstantine(columnParams, sideArchParams, middleArchParams, materialsParams);
+          var archDepth = columnParams.stairBlock1.length3*2 + sideArchParams.depth + sideArchParams.wedgeWidth*2;
+          var archWidth = middleArchParams.width*2 + middleArchParams.archWidth +
+            sideArchParams.width*3 + sideArchParams.wedgeWidth*2 + sideArchParams.archWidth*2;
+          archOfConstantine.position.set(0, 0, -distance/2 - archDepth/2);
+          scene.add(archOfConstantine);
+
+          var fountain = createFountain(fountainParams, materialsParams);
+          var fountainDepth = fountainParams.baseLength + fountainParams.borderThick*2 + fountainParams.sideMargin*2;
+          fountain.position.set(0, 0, distance/2 + fountainDepth/2);
+          scene.add(fountain);
+
+          var background = backgroundScene(treeParams, sideWalkParams, materialsParams, archWidth);
+          scene.add(background);
+
+          render();
+
+          // allow user to have set camera
+          function setCamera0(){
+            updateCamera(cameraParams.camera0, camera);
+            render();
+          }
+          function setCamera1(){
+            updateCamera(cameraParams.camera1, camera);
+            render();
+          }
+          function setCamera2(){
+            updateCamera(cameraParams.camera2, camera);
+            render();
+          }
+          function setCamera3(){
+            updateCamera(cameraParams.camera3, camera);
+            render();
+          }
+          function setCamera4(){
+            updateCamera(cameraParams.camera4, camera);
+            render();
+          }
+          function setCamera5(){
+            updateCamera(cameraParams.camera5, camera);
+            render();
+          }
+
+          var clock = setInterval(render, 200);
+          var gui = new dat.GUI({autoPlace: false});
+          gui.add(guiParams, 'dayTime').onChange(updateLights);
+
+          // place gui on top of canvas
+          var guiContainer = document.getElementById('gui-container');
+          guiContainer.appendChild(gui.domElement);
+
+          // enable user to change camera angles
+          TW.setKeyboardCallback("0", setCamera0, "camera setup 0");
+          TW.setKeyboardCallback("1", setCamera1, "camera setup 1");
+          TW.setKeyboardCallback("2", setCamera2, "camera setup 2");
+          TW.setKeyboardCallback("3", setCamera3, "camera setup 3");
+          TW.setKeyboardCallback("4", setCamera4, "camera setup 4");
+          TW.setKeyboardCallback("5", setCamera5, "camera setup 5");
+
+      </script>
+    </div>
+    <div class="footer">
+      <a href="project.html" target="_blank">Demo</a>
+      <a href="description.html" target="_blank">Description</a>
+    </div>
+    </body>
+</html>

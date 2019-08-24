@@ -1,0 +1,86 @@
+<head>
+  <title>Barn Views Exercise</title>
+  <script src="camera.js"></script>
+  <script src="../../../libs/three.min.js"></script>
+  <script src="../../../libs/tw.js"></script>
+  <script src="../../../libs/OrbitControls.js"></script>
+  <script src="../../../libs/dat.gui.min.js"></script>
+  <link rel="stylesheet" type ="text/css" href="../../../index.css">
+  <link rel="javascript" type ="text/javascript" href="../../../index.js">
+  <link rel ="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa:300,400|Open+Sans">
+</head>
+<body>
+  <div class="header">
+    <h1>Sarah Anne Yan's Portfolio</h1>
+  </div>
+  <div class="navbar">
+    <a href="../../../index.html">Homepage</a>
+    <a href="../../../aboutme/aboutme.html">About Me</a>
+    <div class="dropdown">
+      <button class="dropbtn">Experience
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="../../timeline.html">Timeline</a>
+        <a href="../3D_models.html">Computer Graphics</a>
+      </div>
+    </div>
+    <a href="../../../hobbies/hobbies.html">Hobbies</a>
+  </div>
+    <div class="content">
+      <div class="main">
+        <h2>Arch of Constantine</h2>
+      </div>
+      <script src="creative-scene.js"></script>
+      <script>
+          var renderer = new THREE.WebGLRenderer();
+          var scene = new THREE.Scene();
+          TW.mainInit(renderer, scene);
+
+          // add lights
+          var ambient = new THREE.AmbientLight(0xDDDDDD, 0.6);
+          scene.add(ambient);
+          var direct = new THREE.DirectionalLight(0xAAAAAA, 0.8);
+          direct.position.set(0, 1, 1);
+          scene.add(direct);
+
+          // create parameters
+          var columnParams = createColumnParams();
+          var sideArchParams = createSideArchParams();
+          var middleArchParams = createMiddleArchParams();
+          var materialsParams = createMaterials();
+
+          var totalWidth = middleArchParams.width*2 + middleArchParams.archWidth +
+            sideArchParams.width*3 + sideArchParams.wedgeWidth*2 + sideArchParams.archWidth*2;
+          var totalHeight = columnParams.stairBlock1.height1 + columnParams.stairBlock1.height2 + columnParams.stairBlock1.height3 +
+            columnParams.middleBlock1.height + columnParams.stairBlock2.height1 + columnParams.stairBlock2.height2 + columnParams.stairBlock2.height3 +
+            columnParams.shaft.topHeight + columnParams.shaft.bottomHeight + columnParams.capital1.baseHeight + columnParams.capital1.bottomHeight +
+            columnParams.capital2.baseHeight + columnParams.capital2.bottomHeight + columnParams.stairBlock3.height1 + columnParams.stairBlock3.height2 +
+            columnParams.stairBlock3.height3 + columnParams.middleBlock2.height + columnParams.capital3.baseHeight + columnParams.capital3.bottomHeight;
+          var totalDepth = columnParams.stairBlock1.length3*2 + sideArchParams.depth + sideArchParams.wedgeWidth*2;
+          // to be deleted
+          var origin = createOrigin(columnParams);
+          scene.add(origin);
+
+          var archOfConstantine = createArchOfConstantine(columnParams, sideArchParams, middleArchParams, materialsParams);
+          scene.add(archOfConstantine);
+          var state = TW.cameraSetup(renderer, scene,
+                         {minx: -totalWidth/2, maxx: totalWidth/2,
+                          miny: 0, maxy: totalHeight,
+                          minz: -totalDepth/2, maxz: totalDepth/2});
+          TW.toggleAxes("show");
+      </script>
+    </div>
+    <div class="content">
+      <div class="main">
+        <h2>General Description</h2>
+        <p>This is the simplified version of the Arch of Constantine. </p>
+    </div>
+    </div>
+    <div class="footer">
+      <a href="https://www.facebook.com/sarah.a.y23" target="_blank">Facebook</a>
+      <a href="https://www.linkedin.com/in/sarah-a-yan/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/sarahradial" target="_blank">Github</a>
+    </div>
+    </body>
+</html>
